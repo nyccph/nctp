@@ -4,16 +4,6 @@ using std::cin;
 
 // 1
 
-/* int sumch(int x) { // ф-я для вычисления суммы цифр числа
-    x = abs(x);
-    int s = 0;
-    while (x > 0) {
-        s += x % 10;
-        x /= 10;
-    }
-    return s;
-} */
-
 int main() {
     const int n = 5;
     int mass[n];
@@ -40,7 +30,7 @@ int main() {
     cout << std::endl;
     
     
-    // 2 Найти столбец с минимальным кол-вом положительных чисел и заменить все значения в нем на 100.
+    // 2
     
     const int k = 3, l = 4;
     int matr[k][l];
