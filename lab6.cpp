@@ -104,56 +104,7 @@ void p1() {
     int c = 0;
     int* zmass = zz(matr, row, col, c);
     
-    /* вариант 1 этой хуйни
-     
-    int** matr2 = (int**)calloc(col,sizeof(int*));
-    for (int i = 0; i < col; i ++) {
-        matr2[i] = (int*)calloc(row-c, sizeof(int));
-    }
-    
-    for (int i = 0; i < row; i++) {
-        bool flag = false;
-        for (int j = 0; j < c; j++) {
-            if (i == zmass[j]) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            for (int h = 0; h < col; h++) {
-                matr2[row2][h] = matr[i][h];
-            }
-            row2++;
-        }
-    }
-     вариант 2 этой хуйни
-     
-    for (int i = 0; i < c - 1; i++) { //сортировка zmass по убыванию
-        for (int j = 0; j < c - i - 1; j++) {
-            if (zmass[j] < zmass[j + 1]) {
-                int t = zmass[j];
-                zmass[j] = zmass[j + 1];
-                zmass[j + 1] = t;
-            }
-        }
-    }
-    
-    for (int i = 0; i < c; i++) {
-        int rowdel = zmass[i];
-        delete[] matr[rowdel];
-        for (int j = rowdel; j < row2-1; i++) {
-            for (int h = 0; h < col; h++) {
-                matr[i] = matr[i+1];
-            }
-        }
-        row2--;
-    }
-    
-    
-    int** t = new int*[row2];
-    for (int i = 0; i < row2; i++) {
-        t[i] = matr[i];
-    } */
+   
     cout << "новая матрица: " << std::endl;
     newmatr(matr, row, col, zmass, c);
     if (c == row) cout << "все строки матрицы были удалены :(" << std::endl;
