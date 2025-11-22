@@ -274,7 +274,7 @@ void p2() {
     }
     cout << "демонтсрация разницы при передаче значений в ф-ю:" << std::endl;
     vivod(mm, "исходный массив: ");
-    cout << "адрес массива в p1: " << &mm << std::endl;
+    cout << "адрес массива в p2: " << &mm << std::endl;
     
     std::array<int, s> mass = mm;
     
@@ -335,6 +335,7 @@ void p2() {
 
 int main() {
     p1();
+    cout << std::endl << std::endl;
     p2();
     return 0;
 }
