@@ -238,7 +238,7 @@ void vivod(const std::array<int, s>& mm, const std::string& st = "") {
     cout << "]" << std::endl;
 }
 
-std::array<int, s> zz(std::array<int, s> mm, bool as = true) { // передача по значению СУКА СКОЛЬКОЛ МОЖНО КОДА ТО ЮЛЯТЬ
+std::array<int, s> zz(std::array<int, s> mm, bool as = true) { // передача по значению 
     cout << "адрес массива в ф-ии(по значению): " << &mm << std::endl;
     if (as) {
         std::sort(mm.begin(), mm.end());
