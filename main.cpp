@@ -1,75 +1,131 @@
 #include <iostream>
-using std::cout;
+#include <string>
 using std::cin;
+using std::cout;
 
-// 1
+class Potion {
+    
+private:
+    
+    std::string name;
+    std::string opisaniye;
+    double price;
+    std::string base;
+    double volume;
+    
+public:
+    
+    Potion() : name("unknown"), opisaniye("no"), price(0.0), base("water"), volume(0.0) {
+        
+        cout << "зелье по умолчанию ;)" << std::endl;
+    }
+    
+    Potion(const std::string& name, const std::string& opisaniye, double price, const std::string& base, double volume) : name(name), opisaniye(opisaniye), price(price), base(base), volume(volume){
+        
+        cout << "создано зелье: " << name << std::endl;
+    }
+    
+    Potion(const Potion& copy) : name(copy.name), opisaniye(copy.opisaniye), price(copy.price), base(copy.base), volume(copy.volume) {
+        
+        cout << "скопировано зелье: " << name << std::endl;
+    }
+    
+    ~Potion() {
+        cout << "зелье: " << name << " удалено :(" << std::endl;
+    }
+    
+    std::string gn() const {return name;}
+    std::string go() const {return opisaniye;}
+    double gp() const {return price;}
+    std::string gb() const {return base;}
+    double gv() const {return volume;}
+    
+    void sp(double newprice) {
+        if (newprice >= 0) {
+            price = newprice;
+            cout << "цена зелья " << name << " изменена на " << newprice << std::endl;
+        } else {
+            cout << "error :(" << std::endl;
+        }
+    }
+    
+    void info() const {
+        cout << std::endl;
+        cout << "--- информация о зелье ---" << std::endl;
+        cout << std::endl;
+        cout << "название: " << name << std::endl;
+        cout << "описание: " << opisaniye << std::endl;
+        cout << "цена: " << price << std::endl;
+        cout << "база: " << base << std::endl;
+        cout << "объем: " << volume << std::endl;
+    }
+    
+    void changebase(const std::string& newbase) {
+        if (!newbase.empty()){
+            std::string oldbase = base;
+            base = newbase;
+            cout << "база зелья " << name << " изменена с " << oldbase << " на " << newbase << std::endl;
+        } else {
+            cout << "error :( " << std::endl;
+        }
+    }
+    
+    void ddrink() {
+        const double drinksize = 10.0;
+        if (volume >= drinksize) {
+            volume -= drinksize;
+            cout << "выпита фиксированная порция зелья " << name << " (" << drinksize << " мл)" << std::endl;
+            cout << "осталось: " << volume << " мл" << std::endl;
+        } else if (volume > 0) {
+            cout << "все зелье выпито целиком " << std::endl;
+            volume = 0.0;
+        } else {
+            cout << "зелье " << name << " empty!" << std::endl;
+        }
+    }
+    
+    double drink(double k) {
+        if (k <= 0) {
+            cout << "error :(" << std::endl;
+            return volume;
+        }
+        if (k >= volume) {
+            cout << "выпито все зелье " << name << " (" << volume << " мл)" << std::endl;
+            volume = 0.0;
+            return 0.0;
+        } else {
+            volume = volume - k;
+            cout << "вы выпили " << k << " мл " << " зелья " << name << " осталось " << volume << " мл" << std::endl;
+            return volume;
+        }
+    }
+};
 
 int main() {
-    const int n = 5;
-    int mass[n];
-    cout << "введите 5 чисел массива:" << std::endl;
-    for (int i = 0; i < n; i++) cin >> mass[i];
-    int sb25 = 0;
-    for (int i = 0; i < n; i++) {
-        int x = abs(mass[i]); int s = 0;
-        while (x > 0) {
-            s += x % 10;
-            x /= 10;
-        }
-        if (s > 25) sb25 ++;
-    }
-    if (sb25 >= 2) {
-        for (int i = 0; i < n; i++){
-            if (mass[i] > mass[i+1]) std::swap(mass[i],mass[i+1]);
-        }
-        cout << "успешный успех, массив отсортирован по возрастанию ;)" << std::endl;
-    } else {
-        cout << "условие о сумме цифр числа, превышающей 25, не выполняется, массив остается в прежнем виде :(" << std::endl;
-    }
-    for (int i = 0; i < n; i++) cout << mass[i] << " ";
+    cout << "--- демонстрация ---" << std::endl;
     cout << std::endl;
+    Potion helth ("здоровье","восстанавливает здоровье",100.0,"вода",150.0);
+    helth.info();
+    helth.sp(105.5);
+    helth.changebase("спирт");
+    helth.drink(80.0);
+    helth.drink(70.0);
+    helth.ddrink();
     
+    Potion defaultp;
+    defaultp.info();
     
-    // 2
+    Potion copypotion(helth);
+    copypotion.info();
     
-    const int k = 3, l = 4;
-    int matr[k][l];
-    cout << "введите элементы матрицы 3х4:" << std::endl;
-    for (int i = 0; i < k; i++) {
-        for (int j = 0; j < l; j++) {
-            cin >> matr[i][j];
-        }
-    }
-    cout << "матрица в исходном виде:" << std::endl;
-    for (int i = 0; i < k; i++) {
-        for (int j = 0; j < l; j++) {
-            cout << matr[i][j] << " ";
-        }
-        cout << std::endl;
-    }
-    int mnpch = k + 1;
-    int nst = 0;
-    for (int j = 0; j < l; j++) {
-        int pch = 0;
-        for (int i = 0; i < k; i++) {
-            if (matr[i][j] > 0) pch++;
-        }
-        if (pch < mnpch) {
-            mnpch = pch;
-            nst = j;
-        }
-    }
-    
-    for (int i = 0; i < k; i++) {
-        matr[i][nst] = 100;
-    }
-    cout << "результат замены столбца:" << std::endl;
-    for (int i = 0; i < k; i++) {
-        for (int j = 0; j < l; j++) {
-            cout << matr[i][j] << " ";
-        }
-        cout << std::endl;
-    }
-    cout << "столбец с минимальным количеством положительных чисел: " << nst + 1 << std::endl;
+    cout << "использование геттеров для copypotion" << std::endl;
+    cout << "название: " << copypotion.gn() << std::endl;
+    cout << "описание: " << copypotion.go() << std::endl;
+    cout << "цена: " << copypotion.gp() << std::endl;
+    cout << "база: " << copypotion.gb() << std::endl;
+    cout << "объем: " << copypotion.gv() << std::endl;
+    cout << std::endl;
+    cout << "THE END " << std::endl;
+    cout << std::endl;
     return 0;
-}
+ }
